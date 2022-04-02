@@ -3,6 +3,9 @@ const screens = document.querySelectorAll('.screen');
 const timeList = document.getElementById('time-list');
 const timeEl = document.getElementById('time');
 const board = document.querySelector('.board');
+const backBtn = document.createElement('button');
+backBtn.textContent = 'Назад в меню';
+backBtn.classList.add('time-btn');
 let time = 0;
 let score = 0;
 
@@ -30,7 +33,9 @@ board.addEventListener('click', event => {
 })
 
 function startGame() {
-    setInterval(decreaseTime, 1000);
+    board.innerHTML = '';
+    score = 0;
+    window.timeID = setInterval(decreaseTime, 1000);
     createRandomCircle();
     setTime(time);
 }
@@ -50,12 +55,20 @@ function decreaseTime() {
 }
 
 function setTime(value) {
+    timeEl.parentNode.classList.remove('hide');
     timeEl.innerHTML = `00:${value}`;
 }
 
 function finishGame() {
+    clearInterval(window.timeID);
     timeEl.parentNode.classList.add('hide');
     board.innerHTML = `<h1>Счёт: <span class = "primary">${score}</span></h1>`;
+    board.append(backBtn);
+    backBtn.addEventListener('click', ()=> {
+        for (let i = 0; i < 2; i++) {
+            screens[i].classList.remove('up');
+        }
+    })
 }
 
 
