@@ -9,6 +9,12 @@ backBtn.classList.add('time-btn');
 let time = 0;
 let score = 0;
 
+const COLORS = 
+[
+    `linear-gradient(90deg, #16D9E3 0%, #30C7EC 47%, #46AEF7 100%)`,
+    `linear-gradient(90deg, #91e316 0%, #5aeb1d 47%, #58f746 100%)`,
+    `linear-gradient(90deg, #ef62c2 0%, #eb1de1 47%, #d446f7 100%)`,
+    `linear-gradient(90deg, #ef6262 0%, #eb1d1d 47%, #f74646 100%)`]
 
 startBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -83,9 +89,13 @@ function createRandomCircle() {
     circle.classList.add('circle');
     circle.style.width = `${size}px`
     circle.style.height = `${size}px`
+    circle.style.background = `${getRandomColor()}`;
     board.append(circle);
 }
 
 function getRandomNumber(min, max) {
     return Math.round(Math.random()*(max - min) + min);
+}
+function getRandomColor() {
+    return COLORS[Math.round(Math.random()*(COLORS.length))];
 }
